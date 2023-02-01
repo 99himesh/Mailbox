@@ -1,7 +1,7 @@
 
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React,{useState,useRef} from "react";
-// import {Navigate, useNavigate} from 'react-router-dom'
+import {Navigate, useNavigate} from 'react-router-dom'
 
 const SignUp = () => {
     const [error,setError]=useState(false);
@@ -9,7 +9,7 @@ const SignUp = () => {
     const emailinputref=useRef("");
     const passwordinputref=useRef("");
     const confirmpasswordref=useRef("");
-//     const navigate=useNavigate();
+    const navigate=useNavigate();
      
 const submitHandler= async(event)=>{
     event.preventDefault();
@@ -37,8 +37,8 @@ const submitHandler= async(event)=>{
   })
   const transformedResponse= await response.json();
   if(response.ok){
-//     navigate("/login")
-console.log("successs");
+    navigate("/login")
+console.log("User has successfully signed up");
   }else{
      const errormessage="Authentication failed";
      if(transformedResponse.error.message){
@@ -50,7 +50,7 @@ console.log("successs");
  }
 }
 const logInHandler=()=>{
-//    navigate('/login')
+   navigate('/login')
 }
     return (<div>
         <div className="container-fluid  bg-light text-center" style={{ padding: '100px 0' }}>
