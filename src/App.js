@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Header from './component/Header/header';
 import Welcome from './component/pages/welcome/welcome';
+import TextEditor from './component/texteditor/texteditor';
+import CompposeEmail from './component/pages/compose Email/composeemail';
 // import TextEditor from './component/texteditor/texteditor';
 
 function App() {
@@ -15,7 +17,10 @@ function App() {
   return (
       <>
       
-        <Header/>
+      <CompposeEmail/>
+        {/* <Header/>
+       
+
         <Routes>
          <Route path='/signup'   element={ <SignUp/>}></Route>
          <Route   path="*" element={<Navigate  to='/signup'/>}> </Route>
@@ -23,7 +28,7 @@ function App() {
          <Route path="/welcome" element={<Welcome/>}></Route>
           
         </Routes>
-        
+         */}
 
       </>
   );
