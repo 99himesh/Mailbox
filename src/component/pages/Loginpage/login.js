@@ -30,7 +30,7 @@ const LoginPage = () => {
          })
          const transformedResponse= await response.json();
          if(response.ok){
-            navigate("/welcome")
+            navigate("/inbox")
             console.log("logged in");
          }else{
             const errormessage="Authentication failed";

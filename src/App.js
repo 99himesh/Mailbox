@@ -6,29 +6,27 @@ import LoginPage from './component/pages/Loginpage/login';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Header from './component/Header/header';
-import Welcome from './component/pages/welcome/welcome';
 import TextEditor from './component/texteditor/texteditor';
-import CompposeEmail from './component/pages/compose Email/composeemail';
-// import TextEditor from './component/texteditor/texteditor';
-
+import InboxPage from './component/pages/inbox page/inbox';
+import ComposeEmail from "./component/pages/compose Email/composeemail"
 function App() {
-  // const ifLoggedIn=useSelector(state=>state.auth.loggedIn);
 
   return (
       <>
-      
-      <CompposeEmail/>
-        {/* <Header/>
+        <Header/>
        
 
         <Routes>
          <Route path='/signup'   element={ <SignUp/>}></Route>
          <Route   path="*" element={<Navigate  to='/signup'/>}> </Route>
          <Route path='/login'   element={ <LoginPage/>}></Route>
-         <Route path="/welcome" element={<Welcome/>}></Route>
-          
+         <Route path="/inbox" element={<InboxPage/>}></Route>
+         <Route  path='/compose' element={<ComposeEmail/>}></Route>
         </Routes>
-         */}
+        
+   
+    
+
 
       </>
   );

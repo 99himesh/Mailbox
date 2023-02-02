@@ -1,22 +1,34 @@
 import { useRef } from "react";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import TextEditor from "../../texteditor/texteditor";
 
-const CompposeEmail = (props) => {
+const ComposeEmail = (props) => {
     const mailInputRef = useRef();
     const subjectInputRef = useRef();
     const bodyInputref= useRef();
+    const navigate=useNavigate();
+   
+    const gotoinbox=()=>{
+        navigate("/inbox")
+    }
+
+
 
  const submitHandler=async(e)=>{
     e.preventDefault();
      const enteredmail=mailInputRef.current.value;
      const enteredsubject=subjectInputRef.current.value;
      const enteredBody=bodyInputref.current.value;
-     const emailData=[enteredmail,enteredsubject,enteredBody]
      try { const response=await fetch('https://api-calls-fa398-default-rtdb.firebaseio.com/himesh.json',{
             method:"post",
             body:JSON.stringify({
-                 emailData  
+                read:false,
+                 recieveremail: enteredmail,
+                 subject:enteredsubject,
+                 body:enteredBody,
+                 senderemail:"demo@gmail.com"
+
             }),
             header: {
                 "content-Type": "application/json",
@@ -34,7 +46,7 @@ const CompposeEmail = (props) => {
         }catch(err){
             alert(err.message);
         }
- }
+   }
     return (
         <div className="container-fluid py-5">
             <div className="row">
@@ -57,10 +69,13 @@ const CompposeEmail = (props) => {
                     <div className="my-5">
                        <Button type="submit" >Send</Button>
                     </div>
+                    <div className="my-5">
+                       <Button onClick={gotoinbox} >Send</Button>
+                    </div>
                </form>
 
             </div>
         </div>
     )
 }
-export default CompposeEmail;
+export default ComposeEmail;
