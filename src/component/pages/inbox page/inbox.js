@@ -81,6 +81,41 @@ const changeToRead=async(itm)=>{
 
 
     const list = emailArray.map((itm) => {
+      const  deleteHandler=async()=>{
+        try { const response=await fetch(`https://api-calls-fa398-default-rtdb.firebaseio.com/himesh/${itm.id}.json`,{
+            method:"DELETE",
+        //     body:JSON.stringify({
+        //         read:true,
+        //         recieveremail: itm.recieveremail,
+        //         subject:itm.subject,
+        //         body:itm.body,
+        //         senderemail:"demo@gmail.com"
+    
+        //    }),
+            header: {
+                "content-Type": "application/json",
+              },   
+         })
+         const transformedResponse= await response.json();
+         if(response.ok){
+            console.log("data will be deleted");
+         }else{
+            const errormessage="Authentication failed";
+            if(transformedResponse.error.message){
+                errormessage=transformedResponse.error.message;
+            }
+         }
+        }catch(err){
+            alert(err.message);
+        }
+    
+    
+        
+
+
+      }
+
+
 
         return (
 
@@ -91,10 +126,12 @@ const changeToRead=async(itm)=>{
                         {!itm.read && <div  style={{width:'5px',height:'5px',borderRadius:'50%',margin:'10px 5px', background:'blue'}}></div>}
                         <div className="pe-5">{itm.subject}</div>
                         <div className="px-5" >{itm.body}</div>
+                    
                  </li>
                  </NavLink>
+                 <div className="text-end py-1"  > <Button onClick={deleteHandler} > Delete</Button></div>
                    
-                    <hr></hr>
+                  
                 </div>
             </div>
 
