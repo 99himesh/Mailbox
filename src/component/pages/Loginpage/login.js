@@ -1,11 +1,14 @@
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import {  useNavigate } from "react-router-dom";
+import { AuthAction } from "../../store/Authslice";
 
 
 
 
 
 const LoginPage = () => {
+     const dispatch=useDispatch();
     const navigate=useNavigate();
 
     const emailInputRef=useRef();
@@ -29,9 +32,15 @@ const LoginPage = () => {
               },   
          })
          const transformedResponse= await response.json();
+         debugger
+         console.log(transformedResponse);
          if(response.ok){
+            const obj={email:transformedResponse.email,tkn:transformedResponse.idToken,uid:transformedResponse.localId
+            }
+            dispatch(AuthAction.IsLoggedIn(obj))
             navigate("/inbox")
             console.log("logged in");
+
          }else{
             const errormessage="Authentication failed";
             if(transformedResponse.error.message){

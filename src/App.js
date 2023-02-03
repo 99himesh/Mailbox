@@ -10,7 +10,9 @@ import TextEditor from './component/texteditor/texteditor';
 import InboxPage from './component/pages/inbox page/inbox';
 import ComposeEmail from "./component/pages/compose Email/composeemail"
 import InboxView from './component/pages/inbox page/inboxview';
+import SentBox from './component/pages/sentbox/sentbox';
 function App() {
+ const ifLoggedIn= useSelector(state=>state.auth.loggedIn);
 
   return (
       <>
@@ -18,12 +20,13 @@ function App() {
        
 
         <Routes>
-         <Route path='/signup'   element={ <SignUp/>}></Route>
-         <Route   path="*" element={<Navigate  to='/signup'/>}> </Route>
-         <Route path='/login'   element={ <LoginPage/>}></Route>
-         <Route path="/inbox" element={<InboxPage/>}></Route>
-         <Route  path='/compose' element={<ComposeEmail/>}></Route>
-         <Route  path='/inbox/:key' element={<InboxView/>}></Route>
+         {!ifLoggedIn && <Route path='/signup'   element={ <SignUp/>}></Route>}
+       { !ifLoggedIn &&  <Route   path="*" element={<Navigate  to='/signup'/>}> </Route>}
+        {!ifLoggedIn && <Route path='/login'   element={ <LoginPage/>}></Route>}
+        {ifLoggedIn && <Route path="/inbox" element={<InboxPage/>}></Route>}
+        {ifLoggedIn && <Route path="/sent" element={<SentBox/>}></Route>}
+       {ifLoggedIn && <Route  path='/compose' element={<ComposeEmail/>}></Route>}
+        {ifLoggedIn && <Route  path='/inbox/:key' element={<InboxView/>}></Route>}
          
         </Routes>
         

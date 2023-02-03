@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TextEditor from "../../texteditor/texteditor";
 
 const ComposeEmail = (props) => {
+     const emailauth=   useSelector(state=>state.auth.email);
     const mailInputRef = useRef();
     const subjectInputRef = useRef();
     const bodyInputref= useRef();
@@ -27,7 +29,7 @@ const ComposeEmail = (props) => {
                  recieveremail: enteredmail,
                  subject:enteredsubject,
                  body:enteredBody,
-                 senderemail:"demo@gmail.com"
+                 senderemail:emailauth
 
             }),
             header: {
@@ -47,6 +49,8 @@ const ComposeEmail = (props) => {
             alert(err.message);
         }
    }
+
+   
     return (
         <div className="container-fluid py-5">
             <div className="row">

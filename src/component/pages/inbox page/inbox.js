@@ -2,21 +2,24 @@
 import { useEffect, useState } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate,NavLink } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { MAilAction } from "../../store/mailSlice";
 
 
 
 const InboxPage = () => {
-       const emailArray=useSelector(state=>state.mail.mails);
+    const [unreadmessage, setmessagecount] = useState(0);
+    const emailArray = useSelector(state => state.mail.mails);
+    const AuthSlice=useSelector(state=>state.auth)
     const navigate = useNavigate();
     // const [emailArray, setEmailArray] = useState([]);
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
     const pagechangetocompose = () => {
-        navigate("/compose")
+        navigate("/compose");
     }
- 
-   
+    let count = 0;
+
+
 
 
     const getEmail = async (e) => {
@@ -32,12 +35,23 @@ const InboxPage = () => {
             if (response.ok) {
                 const emailData = [];
                 for (let key in transformedResponse) {
-                    emailData.push({...transformedResponse[key],id:key})
+                    emailData.push({ ...transformedResponse[key], id: key })
                 }
+                const inboxdata=emailData.filter(itm=>itm.recieveremail===AuthSlice.email);
+
+        
+                for(let i=0;i<inboxdata.length;i++){
+                    if (inboxdata[i].read === false) {
+                        count=count+1;
+                    }
+                }
+                
+                setmessagecount(count);
+                    
                 // setEmailArray(emailData);
-                dispatch(MAilAction.replacemailArray({newmailArray:emailData}))
-                console.log(emailData);
-                console.log(transformedResponse);
+                dispatch(MAilAction.replacemailArray({ newmailArray: inboxdata }))
+
+
             } else {
                 const errormessage = "Authentication failed";
                 if (transformedResponse.error.message) {
@@ -49,91 +63,93 @@ const InboxPage = () => {
         }
     }
 
-    setInterval( useEffect(()=>{
+    setInterval(useEffect(() => {
         getEmail();
-    }),2000)
-   
+    }), 2000)
 
-const changeToRead=async(itm)=>{
-    try { const response=await fetch(`https://api-calls-fa398-default-rtdb.firebaseio.com/himesh/${itm.id}.json`,{
-        method:"put",
-        body:JSON.stringify({
-            read:true,
-            recieveremail: itm.recieveremail,
-            subject:itm.subject,
-            body:itm.body,
-            senderemail:"demo@gmail.com"
 
-       }),
-        header: {
-            "content-Type": "application/json",
-          },   
-     })
-     const transformedResponse= await response.json();
-     if(response.ok){
-        console.log("data send successfull");
-     }else{
-        const errormessage="Authentication failed";
-        if(transformedResponse.error.message){
-            errormessage=transformedResponse.error.message;
+    const changeToRead = async (itm) => {
+        try {
+            const response = await fetch(`https://api-calls-fa398-default-rtdb.firebaseio.com/himesh/${itm.id}.json`, {
+                method: "put",
+                body: JSON.stringify({
+                    read: true,
+                    recieveremail: itm.recieveremail,
+                    subject: itm.subject,
+                    body: itm.body,
+                    senderemail: "demo@gmail.com"
+
+                }),
+                header: {
+                    "content-Type": "application/json",
+                },
+            })
+            const transformedResponse = await response.json();
+            if (response.ok) {
+                console.log("data send successfull");
+            } else {
+                const errormessage = "Authentication failed";
+                if (transformedResponse.error.message) {
+                    errormessage = transformedResponse.error.message;
+                }
+            }
+        } catch (err) {
+            alert(err.message);
         }
-     }
-    }catch(err){
-        alert(err.message);
-    }
 
-}
+    }
 
 
     const list = emailArray.map((itm) => {
-      const  deleteHandler=async()=>{
-        try { const response=await fetch(`https://api-calls-fa398-default-rtdb.firebaseio.com/himesh/${itm.id}.json`,{
-            method:"DELETE",
-        //     body:JSON.stringify({
-        //         read:true,
-        //         recieveremail: itm.recieveremail,
-        //         subject:itm.subject,
-        //         body:itm.body,
-        //         senderemail:"demo@gmail.com"
-    
-        //    }),
-            header: {
-                "content-Type": "application/json",
-              },   
-         })
-         const transformedResponse= await response.json();
-         if(response.ok){
-            console.log("data will be deleted");
-         }else{
-            const errormessage="Authentication failed";
-            if(transformedResponse.error.message){
-                errormessage=transformedResponse.error.message;
+        const deleteHandler = async () => {
+            try {
+                const response = await fetch(`https://api-calls-fa398-default-rtdb.firebaseio.com/himesh/${itm.id}.json`, {
+                    method: "DELETE",
+                    //     body:JSON.stringify({
+                    //         read:true,
+                    //         recieveremail: itm.recieveremail,
+                    //         subject:itm.subject,
+                    //         body:itm.body,
+                    //         senderemail:"demo@gmail.com"
+
+                    //    }),
+                    header: {
+                        "content-Type": "application/json",
+                    },
+                })
+                const transformedResponse = await response.json();
+                if (response.ok) {
+                    console.log("data will be deleted");
+                } else {
+                    const errormessage = "Authentication failed";
+                    if (transformedResponse.error.message) {
+                        errormessage = transformedResponse.error.message;
+                    }
+                }
+            } catch (err) {
+                alert(err.message);
             }
-         }
-        }catch(err){
-            alert(err.message);
+
+
+
+
+
         }
-    
-    
-        
-
-
-      }
 
 
 
         return (
 
             <div className="container my-1 bg-light" >
-                <div className="row">  
-                 <NavLink onClick={changeToRead.bind(null,itm)} to={`/inbox/${itm.id}`}> 
-                 <li style={{ listStyle: 'none',display:'flex' }} >
-                        {!itm.read && <div  style={{width:'5px',height:'5px',borderRadius:'50%',margin:'10px 5px', background:'blue'}}></div>}
-                        <div className="pe-5">{itm.subject}</div>
-                        <div className="px-5" >{itm.body}</div>
-                 </li>
-                 </NavLink>
-                 <div className="text-end py-1"  > <Button onClick={deleteHandler} > Delete</Button></div>
+                <div className="row">
+                    <NavLink style={{ textDecoration: 'none', color: 'black' }} onClick={changeToRead.bind(null, itm)} to={`/inbox/${itm.id}`}>
+                        <li style={{ listStyle: 'none', display: 'flex', padding: '5px 0' }} >
+                            {!itm.read && <div style={{ width: '5px', height: '5px', borderRadius: '50%', margin: '10px 5px', background: 'blue' }}></div>}
+                            <div className="pe-5">{itm.subject}</div>
+                            <div className="px-5" >{itm.body}</div>
+                        </li>
+                    </NavLink>
+                    <div className="text-end py-1"  > <Button onClick={deleteHandler} > Delete</Button></div>
                 </div>
             </div>
 
@@ -167,10 +183,10 @@ const changeToRead=async(itm)=>{
                                     <Button onClick={pagechangetocompose} style={{ borderRadius: '0', padding: '5px 50px' }} >compose</Button>
                                 </div>
                                 <div className="py-2 px-3" >
-                                    <Link to="" style={{ textDecoration: 'none', color: 'black' }}>Inbox</Link>
+                                    <Link to="/inbox" style={{ textDecoration: 'none', color: 'black' }}>Inbox {unreadmessage} </Link>
                                 </div>
                                 <div className="py-2 px-3">
-                                    <Link to="" style={{ textDecoration: 'none', color: 'black' }}>sent</Link>
+                                    <Link to="/sent" style={{ textDecoration: 'none', color: 'black' }}>sent</Link>
                                 </div>
                                 <div className="py-2 px-3">
                                     <Link to="" style={{ textDecoration: 'none', color: 'black' }}>sample</Link>
