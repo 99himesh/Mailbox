@@ -9,6 +9,7 @@ import Header from './component/Header/header';
 import TextEditor from './component/texteditor/texteditor';
 import InboxPage from './component/pages/inbox page/inbox';
 import ComposeEmail from "./component/pages/compose Email/composeemail"
+import InboxView from './component/pages/inbox page/inboxview';
 function App() {
 
   return (
@@ -22,6 +23,8 @@ function App() {
          <Route path='/login'   element={ <LoginPage/>}></Route>
          <Route path="/inbox" element={<InboxPage/>}></Route>
          <Route  path='/compose' element={<ComposeEmail/>}></Route>
+         <Route  path='/inbox/:key' element={<InboxView/>}></Route>
+         
         </Routes>
         
    

@@ -1,13 +1,17 @@
+
 import { useState } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate,NavLink } from "react-router-dom";
+import { MAilAction } from "../../store/mailSlice";
 
 
 
 const InboxPage = () => {
+       const emailArray=useSelector(state=>state.mail.mails);
     const navigate = useNavigate();
-    const [emailArray, setEmailArray] = useState([]);
-
+    // const [emailArray, setEmailArray] = useState([]);
+    const dispatch=useDispatch();
     const pagechangetocompose = () => {
         navigate("/compose")
     }
@@ -27,9 +31,10 @@ const InboxPage = () => {
             if (response.ok) {
                 const emailData = [];
                 for (let key in transformedResponse) {
-                    emailData.push(transformedResponse[key])
+                    emailData.push({...transformedResponse[key],id:key})
                 }
-                setEmailArray(emailData);
+                // setEmailArray(emailData);
+                dispatch(MAilAction.replacemailArray({newmailArray:emailData}))
                 console.log(emailData);
                 console.log(transformedResponse);
             } else {
@@ -42,19 +47,53 @@ const InboxPage = () => {
             alert(err.message);
         }
     }
+
+
+const changeToRead=async(itm)=>{
+    try { const response=await fetch(`https://api-calls-fa398-default-rtdb.firebaseio.com/himesh/${itm.id}.json`,{
+        method:"put",
+        body:JSON.stringify({
+            read:true,
+            recieveremail: itm.recieveremail,
+            subject:itm.subject,
+            body:itm.body,
+            senderemail:"demo@gmail.com"
+
+       }),
+        header: {
+            "content-Type": "application/json",
+          },   
+     })
+     const transformedResponse= await response.json();
+     if(response.ok){
+        console.log("data send successfull");
+     }else{
+        const errormessage="Authentication failed";
+        if(transformedResponse.error.message){
+            errormessage=transformedResponse.error.message;
+        }
+     }
+    }catch(err){
+        alert(err.message);
+    }
+
+}
+
+
     const list = emailArray.map((itm) => {
 
         return (
-            <div className="container my-1 bg-light">
-                <div className="row">
-                    <li style={{ listStyle: 'none',display:'flex' }} >
-                        {itm.read && <div>message is read</div>}
+
+            <div className="container my-1 bg-light" >
+                <div className="row">  
+                 <NavLink onClick={changeToRead.bind(null,itm)} to={`/inbox/${itm.id}`}> 
+                 <li style={{ listStyle: 'none',display:'flex' }} >
+                        {!itm.read && <div  style={{width:'5px',height:'5px',borderRadius:'50%',margin:'10px 5px', background:'blue'}}></div>}
                         <div className="pe-5">{itm.subject}</div>
                         <div className="px-5" >{itm.body}</div>
-                        
-                        {/* <div className="px-5" >{itm.senderemail}</div>
-                        <div className="px-5">{itm.recieveremail}</div> */}
-                    </li>
+                 </li>
+                 </NavLink>
+                   
                     <hr></hr>
                 </div>
             </div>

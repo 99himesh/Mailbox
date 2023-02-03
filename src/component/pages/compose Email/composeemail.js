@@ -23,7 +23,7 @@ const ComposeEmail = (props) => {
      try { const response=await fetch('https://api-calls-fa398-default-rtdb.firebaseio.com/himesh.json',{
             method:"post",
             body:JSON.stringify({
-                read:false,
+                 read:false,
                  recieveremail: enteredmail,
                  subject:enteredsubject,
                  body:enteredBody,
@@ -70,7 +70,7 @@ const ComposeEmail = (props) => {
                        <Button type="submit" >Send</Button>
                     </div>
                     <div className="my-5">
-                       <Button onClick={gotoinbox} >Send</Button>
+                       <Button onClick={gotoinbox} >Go To Inbox</Button>
                     </div>
                </form>
 
