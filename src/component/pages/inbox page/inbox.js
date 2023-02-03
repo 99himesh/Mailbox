@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate,NavLink } from "react-router-dom";
@@ -15,7 +15,8 @@ const InboxPage = () => {
     const pagechangetocompose = () => {
         navigate("/compose")
     }
-
+ 
+   
 
 
     const getEmail = async (e) => {
@@ -48,6 +49,10 @@ const InboxPage = () => {
         }
     }
 
+    setInterval( useEffect(()=>{
+        getEmail();
+    }),2000)
+   
 
 const changeToRead=async(itm)=>{
     try { const response=await fetch(`https://api-calls-fa398-default-rtdb.firebaseio.com/himesh/${itm.id}.json`,{
@@ -126,17 +131,13 @@ const changeToRead=async(itm)=>{
                         {!itm.read && <div  style={{width:'5px',height:'5px',borderRadius:'50%',margin:'10px 5px', background:'blue'}}></div>}
                         <div className="pe-5">{itm.subject}</div>
                         <div className="px-5" >{itm.body}</div>
-                    
                  </li>
                  </NavLink>
                  <div className="text-end py-1"  > <Button onClick={deleteHandler} > Delete</Button></div>
-                   
-                  
                 </div>
             </div>
 
         )
-
     })
 
 
@@ -147,7 +148,6 @@ const changeToRead=async(itm)=>{
                     <div className="container-fluid px-5">
                         <a className="navbar-brand" href="#">yahoo!mail</a>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
                             <form style={{ width: '80%' }} className="d-flex" role="search">
                                 <input className="form-control px-5 ms-5" type="search" placeholder="Search" />
                                 <button className="btn btn-outline-success" type="submit">Search</button>
