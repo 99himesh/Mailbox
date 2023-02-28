@@ -1,16 +1,15 @@
+import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import {  useNavigate } from "react-router-dom";
-import { AuthAction } from "../../store/Authslice";
-
-
+import  {IsLoggedIn,IsLoggedout} from "../../store/Authslice"
 
 
 
 const LoginPage = () => {
      const dispatch=useDispatch();
     const navigate=useNavigate();
-
+ const [error,seterror]=useState(false);
     const emailInputRef=useRef();
     const passwordinputref=useRef();
      
@@ -19,6 +18,8 @@ const LoginPage = () => {
         const enterdemail=emailInputRef.current.value;
         const enteredpassword=passwordinputref.current.value;
         
+
+
         try { const response=await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDOBKsBkoQ9LTBCmp3LobdP7sg6C7JCzRM',{
             method:"post",
             body:JSON.stringify({
@@ -32,16 +33,21 @@ const LoginPage = () => {
               },   
          })
          const transformedResponse= await response.json();
-         debugger
+         ////debugger
          console.log(transformedResponse);
          if(response.ok){
             const obj={email:transformedResponse.email,tkn:transformedResponse.idToken,uid:transformedResponse.localId
             }
-            dispatch(AuthAction.IsLoggedIn(obj))
+            ////debugger
+            dispatch(IsLoggedIn(obj))
             navigate("/inbox")
             console.log("logged in");
 
-         }else{
+         }
+        
+         
+         else{
+            seterror(true);
             const errormessage="Authentication failed";
             if(transformedResponse.error.message){
                 errormessage=transformedResponse.error.message;
@@ -50,18 +56,7 @@ const LoginPage = () => {
         }catch(err){
             alert(err.message);
         }
-
-
     }
-    
-
-
-
-
-
-
-
-
     const signUpChangeHandler=()=>{
         navigate("/signup") 
     }
@@ -69,10 +64,10 @@ const LoginPage = () => {
 
     return (
         <div>
-            <div className="container  bg-light text-center" style={{ padding: '100px 0' }}>
-                <div className="row  " style={{ width: '25%', margin: '0 auto', background: 'white' }}>
+            <div className="container  bg-light text-center login" style={{ padding: '100px 0' }}>
+                <div className="row  loginrow" style={{ width: '30%', margin: '0 auto', background: 'white' }}>
                     <h4 style={{ padding: '20px 0' }}>Login</h4>
-                    {/* {error && <p>please fill all field</p>} */}
+                    {error && <p style={{color:'red'}}>please fill correct email and password</p>}
                     <form onSubmit={loginHandler}>
                         <div >
                             <input ref={emailInputRef} className="my-3 px-3 py-2" style={{ background: 'black', color: 'white', borderRadius: '20px', border: '0' }} type="email" placeholder="Email"></input>
