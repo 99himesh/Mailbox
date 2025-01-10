@@ -67,10 +67,10 @@ const SentBox = (props) => {
                <LoginHeader/>
             </div>
             <div className="row ">
-                <div className="col-5 col-lg-2 col-md-2" >
+                <div className="col-6  col-md-2" >
                     <Menu countinbox={props.countinbox}/>
                 </div>
-                <div className="col-md-10 col-lg-10 col-7 px-0">
+                <div className="col-md-10 col-6 px-0">
                     <ul className="px-0 ">{list}</ul>
                 </div>
             </div>
