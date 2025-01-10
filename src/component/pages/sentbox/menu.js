@@ -87,6 +87,7 @@ const onChangee=()=>{
 }
 
 
+console.log(props);
 
  
 
@@ -94,13 +95,13 @@ const onChangee=()=>{
         <div className="container-fluid px-1">
             <div className="row">
             <Navbar bg="light" variant="light">
-                        <Container style={{padding:'0 0 400px 0'}}>
+                        <Container style={{padding:'0 20px 400px 20px'}}>
 
                             <Nav className="me-auto d-inline"  >
                                 <div>
                                     <div className="container-fluid" >   
                                         <div className="row" >
-                                        <Button  style={{ borderRadius: '0', padding: '5px 40px'}}  variant="primary" onClick={handleShow}>
+                                        <Button  style={{ borderRadius: '0', padding: '5px 20px'}}  variant="primary" onClick={handleShow}>
                                             compose
                                         </Button>
 
@@ -150,10 +151,10 @@ const onChangee=()=>{
                                     </div>
                                 </div>
                                 <div className="py-2 px-3" >
-                                    <Link to="/inbox" style={{ textDecoration: 'none',color: 'black' }}>Inbox {props.countinbox} </Link>
+                                    <Link to="/inbox"  style={{ textDecoration: 'none',color: 'black' }}>Inbox {props.countinbox} </Link>
                                 </div>
                                 <div className="py-2 px-3">
-                                    <Link to="/sent" style={{ textDecoration: 'none', color: 'black' }}>sent</Link>
+                                    <Link to="/sent" style={{ textDecoration: 'none', color: 'black' }}>sent{}</Link>
                                 </div>
                             </Nav>
                         </Container>

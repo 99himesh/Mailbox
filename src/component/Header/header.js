@@ -7,7 +7,7 @@ const Header=()=>{
  const ifLoggedIn= useSelector(state=>state.auth.loggedIn);
 
     return (
-        <Navbar>
+        // <Navbar>
         <Container  >
           <Nav  style={{margin:'0 auto' }}>
          {!ifLoggedIn && <Link to="/signup"  style={{textDecoration:'none' ,padding:'0 10px'}}  >
@@ -20,7 +20,7 @@ const Header=()=>{
           
           </Nav>
         </Container>
-      </Navbar>
+      // </Navbar>
     )
 
 }
