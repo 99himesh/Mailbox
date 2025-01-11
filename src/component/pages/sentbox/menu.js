@@ -94,7 +94,7 @@ console.log(props);
      return(
         <div className="container-fluid px-1">
             <div className="row">
-            <Navbar variant="light">
+            <Navbar bg="light" variant="light">
                         <Container style={{padding:'0 20px 400px 20px'}}>
 
                             <Nav className="me-auto d-inline"  >
