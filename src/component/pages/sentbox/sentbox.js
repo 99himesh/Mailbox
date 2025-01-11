@@ -70,8 +70,8 @@ const SentBox = (props) => {
                 <div className="col-5  col-md-2" >
                     <Menu countinbox={props.countinbox}/>
                 </div>
-                <div className="col-md-10 col-5 px-0">
-                    <ul className="px-0 ">{list}</ul>
+                <div className="col-md-10 col-7 px-0">
+                    <ul className="px-0">{list}</ul>
                 </div>
             </div>
         </div>
