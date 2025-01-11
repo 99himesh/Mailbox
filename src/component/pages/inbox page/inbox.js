@@ -108,7 +108,7 @@ const InboxPage=(props)=>{
             <div className="row"><LoginHeader/></div>
             <div className="row ">
                 <div className="col-4  col-md-1"><Menu countinbox={props.countinbox}/></div>
-                <div className="col-md-12 col-8 px-0">{list}</div>
+                <div className="col-md-11 col-8 px-0">{list}</div>
             </div>
         </div>
      )
