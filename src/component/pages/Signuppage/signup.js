@@ -50,10 +50,10 @@ console.log("User has successfully signed up");
 
 const logInHandler=()=>{
    navigate('/login')
-}
-    return (<div>
-        <div className="container-fluid  bg-light text-center" style={{ padding: '100px 0' }}>
-            <div className="row  bg-light " style={{ width: '25%', border: '1px solid black', margin: '0 auto' }}>
+} 
+    return (<div  style={{height: `100vh`,overflow:"hidden", background: 'rebeccapurple'}}>
+        <div className="container-fluid  text-center" style={{ padding: '100px 0' }}>
+            <div className="row  w-100 " style={{ width: '25%', margin: '0 auto' }}>
               <div className="col-md-12">
                 <h4 className="py-3">Sign up</h4>
                  {error && <p style={{color:'red'}}>Signup Failed</p>}
@@ -61,23 +61,25 @@ const logInHandler=()=>{
 
                 <form onSubmit={submitHandler}>
                     <div>
-                        <input className="p-2" ref={emailinputref} type="text" placeholder="Email" style={{ width: '90%', borderRadius: '5px', border: '0', margin: '10px' }} />
+                        <input className="px-3 py-2" ref={emailinputref} type="text" placeholder="Email"/>
                     </div>
                     <div>
-                        <input className="p-2" ref={passwordinputref} type="password" placeholder="password" style={{ width: '90%', borderRadius: '5px', border: '0', margin: '10px ' }}  />
+                        <input className= " my-2 px-3 py-2" ref={passwordinputref} type="password" placeholder="password"  />
                     </div>
                     <div>
-                        <input className="p-2" ref={confirmpasswordref} type="passsword" placeholder="confirm password" style={{ width: '90%', borderRadius: '5px', border: '0', margin: '10px ' }} />
+                        <input className="px-3 py-2" ref={confirmpasswordref} type="passsword" placeholder="confirm password"  />
                     </div>
                     <div>
-                        <button className="bg-primary my-4 p-1" style={{ borderRadius: '20px', border: '0', color: 'white', width: '90%' }}>Sign up</button>
+                        <button className="bg-warning my-4 p-1" style={{width:"220px", borderRadius: '5px', border: '0' }}>Sign up</button>
                     </div>
+                    <div>
+                <p onClick={logInHandler} className="" style={{ color:"white",cursor:"pointer",  border: '0', margin: '5px 0' }}>Have an account? Login</p>
+            </div>
                 </form>
+             
             </div>
             </div>
-            <div>
-                <button onClick={logInHandler} className="my-3 py-2" style={{ width: '25%', background: 'blue', border: '0', background: '#ADD8E6' }}>Have an account? Login</button>
-            </div>
+            
        
         </div>
     </div>)

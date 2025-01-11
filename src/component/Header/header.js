@@ -8,8 +8,8 @@ const Header=()=>{
 
     return (
         // <Navbar>
-        <Container  >
-          <Nav  style={{margin:'0 auto' }}>
+        <Container   >
+          <Nav  style={{width:"100%",margin:'0 auto' }}>
          {!ifLoggedIn && <Link to="/signup"  style={{textDecoration:'none' ,padding:'0 10px'}}  >
               Signup
             </Link> }
@@ -19,7 +19,7 @@ const Header=()=>{
             
           
           </Nav>
-        </Container>
+         </Container>
       // </Navbar>
     )
 

@@ -63,29 +63,29 @@ const LoginPage = () => {
  
 
     return (
-        <div>
-            <div className="container  bg-light text-center login" style={{ padding: '100px 0' }}>
-                <div className="row  loginrow" style={{ width: '30%', margin: '0 auto', background: 'white' }}>
+        <div style={{height: `100vh`,overflow:"hidden", background: 'rebeccapurple'}}>
+            <div className="container  text-center login" style={{ padding: '100px 0' , background: 'rebeccapurple'}}>
+                <div className="row  w-100" style={{width:"20%",  margin: '0 auto', background: 'rebeccapurple' }}>
                     <h4 style={{ padding: '20px 0' }}>Login</h4>
                     {error && <p style={{color:'red'}}>please fill correct email and password</p>}
                     <form onSubmit={loginHandler}>
                         <div >
-                            <input ref={emailInputRef} className="my-3 px-3 py-2" style={{ background: 'black', color: 'white', borderRadius: '20px', border: '0' }} type="email" placeholder="Email"></input>
+                            <input ref={emailInputRef} className=" px-3 py-2"  type="email" placeholder="Email"></input>
                         </div>
                         <div>
-                            <input ref={passwordinputref} className="my-3 px-3 py-2" style={{ background: 'black', borderRadius: '20px', color: 'white', border: '0' }} type="password" placeholder="Password"></input>
+                            <input ref={passwordinputref} className="my-2 px-3 py-2" type="password" placeholder="Password"></input>
                         </div>
 
                         <div>
-                            <button className="bg-primary  p-1" style={{ width: '80%', margin: '0 auto', border: '0', borderRadius: '20px' }}>Login</button>
-                            <p className="py-1" style={{ color: 'blue', textDecoration: 'underline' }}>Forget Password</p>
+                            <button className="bg-warning  p-1" style={{ margin: '0 auto', border: '0', borderRadius: '5px',width:"220px" }}>Login</button>
                         </div>
 
                     </form>
+                    <div>
+                    <p onClick={signUpChangeHandler} style={{ color:"white",cursor:"pointer",  border: '0', margin: '20px 0' }}>Create account? Sign up</p>
                 </div>
-                <div>
-                    <button onClick={signUpChangeHandler} style={{ background: 'skyblue', border: '0', padding: '10px 30px', margin: '20px 0' }}>Dont have an account? sign up</button>
                 </div>
+             
             </div>
         </div>);
 

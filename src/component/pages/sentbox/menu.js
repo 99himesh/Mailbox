@@ -94,12 +94,12 @@ console.log(props);
      return(
         <div className="container-fluid px-1">
             <div className="row">
-            <Navbar bg="light" variant="light">
-                        <Container style={{padding:'0 20px 400px 20px'}}>
+            <Navbar bg="light"  variant="light">
+                        <div style={{height:"100vh"}}>
 
-                            <Nav className="me-auto d-inline"  >
+                            <Nav className="me-auto  d-inline"  >
                                 <div>
-                                    <div className="container-fluid" >   
+                                    <div className="container-fluid " >   
                                         <div className="row" >
                                         <Button  style={{ borderRadius: '0', padding: '5px 10px'}}  variant="primary" onClick={handleShow}>
                                             compose
@@ -150,14 +150,14 @@ console.log(props);
                                         </div> 
                                     </div>
                                 </div>
-                                <div className="py-2 px-3" >
+                                <div className="py-2 ps-2" >
                                     <Link to="/inbox"  style={{ textDecoration: 'none',color: 'black' }}>Inbox {props.countinbox} </Link>
                                 </div>
-                                <div className="py-2 px-3">
+                                <div className="py-2 ps-2">
                                     <Link to="/sent" style={{ textDecoration: 'none', color: 'black' }}>sent{}</Link>
                                 </div>
                             </Nav>
-                        </Container>
+                        </div>
             </Navbar>
         </div>
 
