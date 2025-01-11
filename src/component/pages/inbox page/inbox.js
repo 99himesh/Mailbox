@@ -80,7 +80,7 @@ const InboxPage=(props)=>{
 
 
             return(
-                <div key={item.id} className="container-fluid px-0">
+                <div key={item.id} className="container-fluid ">
                     <div className="row bg-light py-2 mt-1 " >
                         <div className="d-flex" style={{justifyContent:'space-between'}}  >
                        <Link to={`/inbox/${item.id}`} onClick={changeToRead} style={{textDecoration:'none',alignItems:'center', color:"black"}}>
@@ -106,7 +106,7 @@ const InboxPage=(props)=>{
      return(
         <div className="container-fluid">
             <div className="row"><LoginHeader/></div>
-            <div className="row">
+            <div className="row ">
                 <div className="col-4  col-md-2"><Menu countinbox={props.countinbox}/></div>
                 <div className="col-md-10 col-8 px-0">{list}</div>
             </div>

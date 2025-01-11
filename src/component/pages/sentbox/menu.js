@@ -101,7 +101,7 @@ console.log(props);
                                 <div>
                                     <div className="container-fluid" >   
                                         <div className="row" >
-                                        <Button  style={{ borderRadius: '0', padding: '5px 20px'}}  variant="primary" onClick={handleShow}>
+                                        <Button  style={{ borderRadius: '0', padding: '5px 10px'}}  variant="primary" onClick={handleShow}>
                                             compose
                                         </Button>
 
